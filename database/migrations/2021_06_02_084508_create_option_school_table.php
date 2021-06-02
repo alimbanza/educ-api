@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateOptionSchoolTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('option_school', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('option_id');
+            $table->unsignedBigInteger('school_id');
+
+            $table->foreign('option_id')->references('id')->on('options');
+            $table->foreign('school_id')->references('id')->on('schools');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('option_school');
+    }
+}
